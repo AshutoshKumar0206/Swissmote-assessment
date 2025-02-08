@@ -1,6 +1,5 @@
 import React, { useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-// import useStore from './lib/useStore';
 import Header from "./components/Header";
 import Signup from "./components/Signup";
 import Signin from "./components/Signin";
@@ -11,12 +10,11 @@ import Home from "./components/Home";
 import Profile from "./components/Profile";
 import CreateEvent from "./components/CreateEvent";
 import { ToastContainer, toast } from "react-toastify";
+import EventDetails from "./components/EventDetails";
+import UpdateProfile from "./components/UpdateProfile";
+import ResetPassword from "./components/ResetPassword";
+import ForgotPassword from "./components/ForgotPassword";
 const App = () => {
-  // const { monitorSocketConnection } = useStore();
-
-  // useEffect(() => {
-  //   monitorSocketConnection();
-  // }, [monitorSocketConnection]);
 
   return (
     <Router>
@@ -25,15 +23,15 @@ const App = () => {
         <Route path="/" element={<Home />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/signin" element={<Signin />} />
-        {/* <Route path="/forgot-password" element={<ForgotPassword />} /> */}
-        {/* <Route path="/reset-password" element={<ResetPassword />} /> */}
-        <Route path="/otp-verification" element={<OTPVerification />} />
+        <Route path="/forgotpassword" element={<ForgotPassword />} />
+        <Route path="/resetpassword" element={<ResetPassword />} />
+        <Route path="/otpverification" element={<OTPVerification />} />
         <Route path="/blank" element={<BlankPage />} />
         <Route path="/dashboard/:id" element={<EventDashboard />} />
         <Route path="/profile/:id" element={<Profile />} />
-        <Route path="create-event" element={<CreateEvent />} />
-        {/* <Route path="/contact" element={<ContactUs />} /> */}
-        {/* <Route path="/chat-container" element={<ChatContainer />} /> */}
+        <Route path="createevent" element={<CreateEvent />} />
+        <Route path="/eventdetails/:id" element={<EventDetails />} />
+        <Route path="/updateprofile/:id" element={<UpdateProfile />} />
       
       </Routes>
     </Router>

@@ -7,8 +7,8 @@ const Header = () => {
   return (
     <header className="bg-gradient-to-r from-blue-600 to-blue-800 text-white shadow-md relative z-50">
       <div className="container mx-auto px-6 flex items-center justify-between py-4">
-        <h1 className="text-2xl font-bold tracking-wide">
-          Event Management Portal
+        <h1 className="text-2xl font-bold tracking-wide gap-4">
+          <span className="bg-white rounded-full text-black px-2">E</span>vent Management Portal
         </h1>
 
         <button

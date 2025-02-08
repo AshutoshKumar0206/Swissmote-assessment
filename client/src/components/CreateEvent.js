@@ -67,12 +67,12 @@ const CreateEvent = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-900 text-white flex justify-center items-center">
-      <div className="bg-gray-800 p-8 rounded-lg shadow-lg w-96" style={{
-                    backgroundImage: `url(${backgroundImage})`,
-                    backgroundSize: "cover",
-                    backgroundPosition: "center"
-                  }}>
+    <div className="min-h-screen bg-gray-900 text-white flex justify-center items-center" style={{
+      backgroundImage: `url(${backgroundImage})`,
+      backgroundSize: "cover",
+      backgroundPosition: "center"
+    }}>
+      <div className="bg-gray-800 p-8 rounded-lg shadow-lg w-96">
         <ToastContainer position="top-center" autoClose={1500} />
         <h2 className="text-2xl font-bold text-center mb-6">Create Event</h2>
 

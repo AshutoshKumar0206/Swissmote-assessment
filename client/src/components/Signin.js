@@ -12,7 +12,6 @@ const Signin = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
-//   const { connectSocket, setUserId } = useStore();
   const apiUrl = window.location.hostname === 'localhost'
     ? "http://localhost:8000" : null;
   const navigate = useNavigate();
@@ -31,14 +30,11 @@ const Signin = () => {
         const { token, user} = response.data;
         document.cookie = `token=${token}; path=/`;
         toast.success("Signin successful!");
-        // setUserId(user._id);
-        // setTimeout(() => { connectSocket(); navigate(`/dashboard/${user._id}`) }, 1500); // Redirect after 2 seconds
         navigate(`/dashboard/${user._id}`)
 
       }
     } catch (err) {
       toast.error(err.response?.data?.message || "Invalid credentials. Please try again.");
-      // console.error("Signin error:", err);
     }
   };
 
@@ -89,7 +85,7 @@ const Signin = () => {
                 />
               </div>
               <p className="text-right text-sm mt-4">
-                <a href="/forgot-password" className="text-end text-blue-400 hover:underline">
+                <a href="/forgotpassword" className="text-end text-blue-400 hover:underline">
                   Forgot Password?
                 </a>
               </p>

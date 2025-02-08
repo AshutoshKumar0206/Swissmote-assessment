@@ -1,6 +1,5 @@
 import React from "react";
 import Header from "./Header";
-// import Footer from './Footer';
 import backgroundImage from '../partials/image.jpg';
 
 const Home = () => {
@@ -15,18 +14,18 @@ const Home = () => {
           backgroundPosition: "top",
         }}
       >
-        <div className="absolute inset-0 bg-black bg-opacity-60"></div>
+        <div className="absolute inset-0 bg-opacity-60"></div>
 
         <div className="relative z-10 text-center px-6">
           <h1 className="text-5xl font-bold text-blue-400 mb-6">
-            Welcome to the Home Page!
+            Welcome to the Event Management Portal! 
           </h1>
           <p className="text-xl text-gray-300 mb-8">
-            This site allows you manage and create Events!
+          Easily create and manage your events with our intuitive platform.<br/> 
+          Upload and organize images, track attendees, and manage event details all in one place!
           </p>
         </div>
       </main>
-      {/* <Footer /> */}
     </div>
   );
 };

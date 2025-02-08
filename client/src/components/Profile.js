@@ -186,7 +186,7 @@ const Profile = () => {
                   <button
                     className="bg-green-600 hover:bg-green-500 text-white font-bold py-2 px-4 rounded-lg sm:w-auto"
                     onClick={() =>
-                      navigate(`/update-profile/${userId}`, { state: { profile: data, userId } })
+                      navigate(`/updateprofile/${userId}`, { state: { profile: data, userId } })
                     }
                   >
                     Edit Profile

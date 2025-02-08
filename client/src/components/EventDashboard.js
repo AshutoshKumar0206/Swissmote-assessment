@@ -3,30 +3,21 @@ import axios from "axios";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
-// import io from "socket.io-client";
-// import Footer from './Footer';
-// import useStore from "../lib/useStore";
 import backgroundImage from "../partials/image.jpg";
+
 const UserDashboard = () => {
   const { id } = useParams();
   const location = useLocation();
   const apiUrl = window.location.hostname === 'localhost'
     ? "http://localhost:8000" : null;
   const navigate = useNavigate();
-  // const socket = io("${apiUrl}", {
-  //   transports: ['websocket'],
-  // });
   const [user, setUser] = useState(null);
   const [date, setDate] = useState([]); 
   const [error, setError] = useState("");
   const [events, setEvents] = useState([]);
   const [categories, setCategories] = useState([]);
   const [filters, setFilters] = useState({ category: '', date: '' });
-  // const date = location.state?.date;
-  // const category = location.state?.category;
-  // const [joinMessage, setJoinMessage] = useState("");
-  // const [isModalOpen, setIsModalOpen] = useState(false);
-//   const { disconnectSocket } = useStore();
+
 console.log("categories", categories);
   const userId = id.toString();
   let userData;
@@ -72,15 +63,6 @@ console.log("categories", categories);
     fetchEvents();
   }, [id, navigate]);
 
-  // useEffect(() => {
-  //   socket.on('notification', (notification) => {
-  //     console.log(notification.message); // Handle the notification (e.g., show an alert or update UI)
-  //   });
-
-  //   return () => {
-  //     socket.off('notification'); // Clean up socket listeners
-  //   };
-  // }, []);
   const fetchEvents = async () => {
     try {
       const token = document.cookie
@@ -144,10 +126,6 @@ console.log("categories", categories);
       if (response.status === 200) {
         document.cookie = "token=; path=/; expires=Thu, 01 Jan 1970 00:00:00 UTC;";
         toast.success("Logout Successful")
-        // disconnectSocket();
-        // setTimeout(() => navigate(`/signin`), 1500);
-        // setTimeout(() => navigate(`/dashboard/${user._id}`), 1500); // Redirect after 2 seconds
-
       } else {
         toast.error(response.data.message || "Logout failed.");
       }
@@ -210,6 +188,10 @@ console.log("categories", categories);
     return filteredEvents;
   };
 
+  // const handleEvent = (event) => {
+       
+  // }
+
   if (error) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-gray-900 text-white">
@@ -271,7 +253,7 @@ console.log("categories", categories);
             </div>
           </div>
              
-          <div className="mb-4 flex justify-between sm:justify-start">
+          <div className="mb-4 flex justify-between sm:justify-between">
             <button
               onClick={() => handleProfile(userId)}
               className="bg-blue-600 hover:bg-blue-500 text-white font-bold py-2 px-4 rounded-lg w-auto"
@@ -311,9 +293,11 @@ console.log("categories", categories);
           {/* Event List */}
           <div className="mb-6">
             <h2 className="text-xl font-semibold mb-4">Upcoming and Past Events</h2>
-            <div className="space-y-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
               {filterEvents().map((event) => (
-                <div key={event.id} className="bg-gray-800 p-4 rounded-lg shadow-lg">
+                <div key={event._id} className="bg-gray-800 p-6 rounded-lg shadow-lg hover:shadow-xl transform hover:scale-105 
+                hover:bg-gray-600 transition-all duration-300 cursor-pointer" onClick={() => 
+                navigate(`/eventdetails/${event._id}`, {state:{event:event, userId:userId}})}>
                   <h3 className="font-semibold text-gray-100">{event.name}</h3>
                   <p>{event.description}</p>
                   <p className="font-semibold text-gray-100">Date: {new Date(event.date).toLocaleDateString()}</p>
