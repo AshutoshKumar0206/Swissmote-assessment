@@ -31,7 +31,8 @@ module.exports.createEvent = async(req, res, next) => {
           date,
           time,
           category,
-          userIds:[userId]
+          attendeesId: [],
+          attendees:0,
         });
     
         await newEvent.save();
@@ -43,6 +44,7 @@ module.exports.createEvent = async(req, res, next) => {
             message: 'Event created successfully!' 
         });
       } catch (err) {
+        console.error(err);
         res.status(500).json({ 
             success: false, 
             message: 'An error occurred while creating Event'
@@ -50,7 +52,7 @@ module.exports.createEvent = async(req, res, next) => {
       }
 }
 
-module.exports.getEvents = async(req, res, next) => {
+module.exports.getAllEvents = async(req, res, next) => {
   try {
     const userId = req.params.id;
     const {category, date } = req.body;
@@ -81,3 +83,28 @@ module.exports.getEvents = async(req, res, next) => {
     });
   }
 };
+
+module.exports.getEvent = async (req, res, next) => {
+  try {
+    console.log(req.params.id);
+    const event = await Event.findById(req.params.id).populate('attendeesId', 'attendees');
+    if (!event) {
+      return res.status(404).json({ 
+        success:false, 
+        message: 'Event not found' 
+      });
+    }
+    const attendeesInfo = await userModel.find({ _id: { $in: event.attendeesId.map(attendee => attendee._id) } });
+    res.status(200).json({ 
+      success:true,
+      message: 'Event fetched successfully',
+      ...event._doc, 
+      attendeesInfo, 
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ 
+      success:false, 
+      message: 'Internal Server error' });
+  }
+}

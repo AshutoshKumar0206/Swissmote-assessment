@@ -21,10 +21,8 @@ module.exports.signup = async (req, res, next) => {
       });
     }
 
-    // Password validation regex
     const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@#$%^&*])[A-Za-z\d@#$%^&*]{8,}$/;
 
-    // Check if password meets the criteria
     if (!passwordRegex.test(password)) {
       return res.status(400).json({
         success: false,
@@ -65,6 +63,19 @@ module.exports.signup = async (req, res, next) => {
       newUser,
       message: "Signup successful",
     });
+  } catch (err) {
+    console.log(err);
+    next(err);
+  }
+};
+module.exports.signinGuest = async (req, res, next) => {
+  try {
+    const guestPayload = {
+      role: 'guest',
+      createdAt: Date.now(),
+    };
+    const token = jwt.sign(guestPayload, 'your_secret_key', { expiresIn: '1h' });
+    res.json({ success: true, token });
   } catch (err) {
     console.log(err);
     next(err);
@@ -188,7 +199,6 @@ module.exports.verifyotp = async (req, res) => {
       return res.status(401).json({ message: "Invalid OTP." });
     }
 
-    // Find the user in notConfirmedModel
     const currUser = await notConfirmedModel.findOne({ email });
     if (!currUser) {
       return res.status(404).json({
@@ -196,7 +206,6 @@ module.exports.verifyotp = async (req, res) => {
       });
     }
 
-    // Create a new entry in pendingUserModel
     const approvedUser = new userModel({
       firstName: currUser.firstName,
       lastName: currUser.lastName,
@@ -205,8 +214,8 @@ module.exports.verifyotp = async (req, res) => {
     });
 
     await approvedUser.save();
-    await notConfirmedModel.findByIdAndDelete(currUser._id); // Delete from notConfirmedModel
-    await OTP.deleteOne({ email, otp }); // Delete the OTP after successful verification
+    await notConfirmedModel.findByIdAndDelete(currUser._id);
+    await OTP.deleteOne({ email, otp });
 
     return res.status(200).json({
       success: true,
@@ -289,16 +298,14 @@ exports.resetPassword = async (req, res) => {
         message: "OTP and email are required",
       });
     }
-    //check if otp matches with otp send on mail
+
     const otpEntry = await OTP.findOne({ email, otp });
     if (!otpEntry) {
       return res.status(401).json({ message: "Invalid OTP." });
     }
 
-    // Password validation regex
     const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@#$%^&*])[A-Za-z\d@#$%^&*]{8,}$/;
 
-    // Check if password meets the criteria
     if (!passwordRegex.test(password)) {
       return res.status(400).json({
         success: false,
@@ -361,7 +368,7 @@ module.exports.dashboard = async (req, res, next) => {
     }
     const user = await userModel
     .findById(id)
-    .select("-password") // Exclude the password field
+    .select("-password")
     
     if (!user) {
       return res.status(200).json({
@@ -383,7 +390,6 @@ module.exports.dashboard = async (req, res, next) => {
     });
   } catch (err) {
 
-    // Prevent sending another response if headers were already sent
     if (!res.headersSent) {
       res.status(500).json({
         success: false,
@@ -395,10 +401,8 @@ module.exports.dashboard = async (req, res, next) => {
 };
 
 module.exports.getProfile = async (req, res, next) => {
-  let userId = req.params.id;
-  
-  // console.log(userId);
   try {
+    let userId = req.params.id;
     userId = new mongoose.Types.ObjectId(userId);
 
     const user = await userModel.findById(userId).select("firstName lastName image");
@@ -446,15 +450,8 @@ module.exports.Profile = async (req, res, next) => {
         firstName: user.firstName,
         lastName: user.lastName,
         email: user.email,
-        rollNo: user.rollNo,
         role: user.role,
-        branch: user.branch,
-        semester: user.semester,
         contact: user.contact,
-        section: user.section,
-        updatedAt: user.updatedAt,
-        exprerience: user.exprerience,
-        employeeId: user.employeeId,
         image: user.image,
       })
 
@@ -484,45 +481,8 @@ module.exports.updateProfile = async (req, res, next) => {
   let email = req.body.email;
   let firstName = req.body.profileInput.firstName;
   let lastName = req.body.profileInput.lastName;
-  let rollNo = req.body.profileInput.rollNo;
-  let branch = req.body.profileInput.branch;
-  let semester = req.body.profileInput.semester;
-  let contact = req.body.profileInput.contact;
-  let section = req.body.profileInput.section;
-  let exprerience = req.body.profileInput.exprerience;
-  let employeeId = req.body.profileInput.employeeId;
-
-  //for phone number
-    // contact = parseInt(contact, 10)
-    // contact = contact.replace(/\D/g, "");
-    console.log(contact)
-    if (!/^\d{10,15}$/.test(contact)) {
-      return res.status(400).json({ 
-        success: false,
-        message: "Invalid phone number format" });
-    }
-    let otp = otpGenerator.generate(6, {
-      upperCaseAlphabets: false,
-      lowerCaseAlphabets: false,
-      specialChars: false,
-    });
-
-    const result = await MobileOTP.findOne({ otp: otp });
-
-    while (result) {
-      otp = otpGenerator.generate(6, {
-        upperCaseAlphabets: false,
-      });
-    }
-     
-    const otpPayload = { contact, otp };
-    const otpBody = await MobileOTP.create(otpPayload);
-    await twilioClient.messages.create({
-      body: `Your otp for updating your Phone Number: ${otp}.`,
-      from: twilioNumber,
-      to: `+91${contact}`, // Ensure it's in international format
-    });
-
+  let contact  = req.body.profileInput.contact;
+  
   try{
     const user = await userModel.findById(userId).select("-password");
     let updatedUser;
@@ -533,7 +493,7 @@ module.exports.updateProfile = async (req, res, next) => {
         semester}, {new: true}).select("-password");
     } else {
       updatedUser = await userModel.findByIdAndUpdate(userId, { email, firstName : firstName, lastName : lastName, 
-         contact, exprerience,employeeId}, {new: true}).select("-password");
+         contact}, {new: true}).select("-password");
     }
     if(!updatedUser){
       res.status(404).json({
@@ -548,14 +508,8 @@ module.exports.updateProfile = async (req, res, next) => {
       email: updatedUser.email,
       firstName: updatedUser.firstName,
       lastName: updatedUser.lastName,
-      rollNo: updatedUser.rollNo,
-      branch: updatedUser.branch,
-      semester: updatedUser.semester,
       contact: updatedUser.contact,
-      section: updatedUser.section,
       role: updatedUser.role,
-      exprerience: updatedUser.exprerience,
-      employeeId: updatedUser.employeeId,
       image: updatedUser.secure_url,
     })
   } catch(err){
