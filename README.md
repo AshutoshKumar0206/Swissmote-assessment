@@ -6,8 +6,9 @@ Upload and organize images, track attendees, and manage event details all in one
 ## Features
 User and Event and Guest Dashboard: Dashboard for users and events
 <br/>
-<img src="../partials/UserDashboard.png">
-<img src="./partials/GuestDashboard.png">
+<img src="./client/src/partials/UserDashboard.png">
+<img src="./client/src/partials/GuestDashboard.png">
+<br/>
 Event Creation: Users can create and manage Events
 
 Filtering of Events: Events can be filtered on basis of Category and date
