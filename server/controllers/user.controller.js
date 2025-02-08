@@ -171,7 +171,6 @@ module.exports.sendotp = async (req, res) => {
       "Verification email",
       emailTemplate(otp)
     )
-    console.log("mail response:", mailResponse);
 
     res.status(200).json({
       success: true,
@@ -179,8 +178,10 @@ module.exports.sendotp = async (req, res) => {
       otp,
     });
   } catch (error) {
-    console.log(error.message);
-    return res.status(500).json({ success: false, error: error.message });
+    return res.status(500).json({ 
+      success: false, 
+      message: "Error occured in sending OTP." 
+    });
   }
 };
 
@@ -239,6 +240,7 @@ module.exports.logout = async (req, res, next) => {
       });
   }
     res.status(200).json({
+      success:true,
       message: "User Logged out",
     });
   } catch (err) {
@@ -441,16 +443,8 @@ module.exports.updateProfile = async (req, res, next) => {
   
   try{
     const user = await userModel.findById(userId).select("-password");
-    let updatedUser;
-    if(user.role == "student") {
-      updatedUser = await userModel.findByIdAndUpdate(userId, { email, firstName : firstName, lastName : lastName, 
-        rollNo, contact, 
-       section, branch, 
-        semester}, {new: true}).select("-password");
-    } else {
-      updatedUser = await userModel.findByIdAndUpdate(userId, { email, firstName : firstName, lastName : lastName, 
+    let updatedUser = await userModel.findByIdAndUpdate(userId, { email, firstName : firstName, lastName : lastName, 
          contact}, {new: true}).select("-password");
-    }
     if(!updatedUser){
       res.status(404).json({
         success: false,

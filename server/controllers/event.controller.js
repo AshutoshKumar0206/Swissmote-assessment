@@ -45,7 +45,6 @@ module.exports.createEvent = async(req, res, next) => {
             message: 'Event created successfully!' 
         });
       } catch (err) {
-        console.error(err);
         res.status(500).json({ 
             success: false, 
             message: 'An error occurred while creating Event'
@@ -55,7 +54,6 @@ module.exports.createEvent = async(req, res, next) => {
 
 module.exports.getAllEvents = async(req, res, next) => {
   try {
-
     const events = await Event.find();
     if (!events || events.length === 0) {
       return res.status(404).json({
@@ -78,7 +76,6 @@ module.exports.getAllEvents = async(req, res, next) => {
 
 module.exports.getEvent = async (req, res, next) => {
   try {
-    console.log(req.params.id);
     const event = await Event.findById(req.params.id).populate('attendeesId', 'attendees');
     if (!event) {
       return res.status(404).json({ 
@@ -125,7 +122,7 @@ module.exports.dashboard = async (req, res, next) => {
         message: "User not found",
       });
     }
-const events = await Event.find();
+   const events = await Event.find();
    if(!events){
     res.status(404).json({
       success: false,
