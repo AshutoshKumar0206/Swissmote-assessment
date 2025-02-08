@@ -1,9 +1,8 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-
+  
   return (
     <header className="bg-gradient-to-r from-blue-600 to-blue-800 text-white shadow-md relative z-50">
       <div className="container mx-auto px-6 flex items-center justify-between py-4">
@@ -61,6 +60,15 @@ const Header = () => {
               className="text-white font-semibold relative group"
             >
               Sign In
+              <span className="absolute left-0 bottom-0 w-full h-[2px] bg-blue-300 scale-x-0 origin-center transition-transform duration-300 group-hover:scale-x-100"></span>
+            </Link>
+          </li>
+          <li>
+            <Link
+              to="/signin"
+              className="text-white font-semibold relative group"
+            >
+              Sign In as Guest
               <span className="absolute left-0 bottom-0 w-full h-[2px] bg-blue-300 scale-x-0 origin-center transition-transform duration-300 group-hover:scale-x-100"></span>
             </Link>
           </li>

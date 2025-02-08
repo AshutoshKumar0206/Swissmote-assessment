@@ -14,6 +14,7 @@ import EventDetails from "./components/EventDetails";
 import UpdateProfile from "./components/UpdateProfile";
 import ResetPassword from "./components/ResetPassword";
 import ForgotPassword from "./components/ForgotPassword";
+import GuestDashboard from "./components/GuestDashboard";
 const App = () => {
 
   return (
@@ -32,6 +33,7 @@ const App = () => {
         <Route path="createevent" element={<CreateEvent />} />
         <Route path="/eventdetails/:id" element={<EventDetails />} />
         <Route path="/updateprofile/:id" element={<UpdateProfile />} />
+        <Route path="/guestdashboard" element={<GuestDashboard />} />
       
       </Routes>
     </Router>

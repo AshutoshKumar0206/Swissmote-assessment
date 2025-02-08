@@ -18,7 +18,6 @@ const OTPVerification = () => {
     try {
       const response = await axios.post(`${apiUrl}/user/verifyotp`, { email: state.email, otp });
       if (response.status === 200) {
-        // console.log("OTP Verified!");
         toast.success("OTP verified. Pending admin approval.");
         navigate("/");
       }

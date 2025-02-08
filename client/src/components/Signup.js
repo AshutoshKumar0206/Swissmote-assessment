@@ -33,7 +33,7 @@ const Signup = () => {
         const result = await axios.post(`${apiUrl}/user/sendotp`, userEmail);
         console.log(result);
         if (result.status === 200) {
-          navigate("/otp-verification", { state: { email } });
+          navigate("/otpverification", { state: { email } });
         }
       }
     } catch (err) {

@@ -30,7 +30,7 @@ const Signin = () => {
         const { token, user} = response.data;
         document.cookie = `token=${token}; path=/`;
         toast.success("Signin successful!");
-        navigate(`/dashboard/${user._id}`)
+      navigate(`/dashboard/${user._id}`)
 
       }
     } catch (err) {
@@ -38,6 +38,23 @@ const Signin = () => {
     }
   };
 
+  const handleSigninGuest = async() => {
+    try {
+      const response = await axios.post(`${apiUrl}/user/signinguest`);
+
+      if (response.data.success) {
+        localStorage.setItem('guestToken', response.data.token);
+        navigate('/guestdashboard');
+      } else {
+        alert('Error signing in');
+      }
+    } catch (error) {
+      alert('An error occurred');
+      console.error(error);
+    }
+
+  }
+ 
   return (
     <div className="min-h-screen flex flex-col">
       <div className="min-h-screen flex items-center justify-center bg-gray-900 text-white" style={{
@@ -110,11 +127,13 @@ const Signin = () => {
               Sign Up
             </a>
           </p>
+          <button className="text-center text-sm mt-4" onClick={handleSigninGuest}>            
+              Sign In as Guest
+          </button>
         </div>
         <ToastContainer position="top-center" autoClose={2500} />
       </div>
-      {/* <Footer /> */}
-    </div>
+      </div>
   );
 };
 
