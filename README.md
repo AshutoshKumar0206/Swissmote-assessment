@@ -4,20 +4,38 @@ Easily create and manage your events with our intuitive platform.<br/>
 Upload and organize images, track attendees, and manage event details all in one place!
 
 ## Features
-User and Event and Guest Dashboard: Dashboard for users and events
+User and Event Dashboard: Dashboard for users and events
 <br/>
 <img src="./client/src/partials/UserDashboard.png">
+<br/>
+
+Guest Dashboard: Dashboard for guests
+<br/>
 <img src="./client/src/partials/GuestDashboard.png">
 <br/>
+
 Event Creation: Users can create and manage Events
+<br/>
+<img src="./client.src/partials/CreateEvent.png"> 
+<br/>
 
 Filtering of Events: Events can be filtered on basis of Category and date
+<br/>
+<img src="./client.src/partials/FilteringOfEvents.png"> 
+<br/>
 
 Join and Leave Event: Users can Join or leave a specific event
+<br/>
+<img src="./client.src/partials/JoinAndLeaveEvent"> 
+<br/>
 
-User Authentication: User can SignUp or SignIn to the Website to access it's features
-
-Guest Authentication: Users can SignIn as a Guest, Only Limited features can be accessed
+User and Guest Authentication: User can SignUp or SignIn to the Website to access it's features. Users can signin as Guest and get access to some limited features.
+<br/>
+<img src="./client.src/partials/SignUp.png"> 
+<br/>
+<br/>
+<img src="./client.src/partials/Signin.png"> 
+<br/>
 
 Real-Time Attendee List: Shows the number of attendee for each event in Real-Time
 
