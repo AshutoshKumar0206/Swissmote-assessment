@@ -124,9 +124,11 @@ const Signin = () => {
               Sign Up
             </a>
           </p>
-          <button className="text-center text-sm mt-4" onClick={handleSigninGuest}>            
+          <div className="text-center">
+          <button className="text-center text-sm mt-4 text-green-400 hover:underline" onClick={handleSigninGuest}>            
               Sign In as Guest
           </button>
+          </div>
         </div>
         <ToastContainer position="top-center" autoClose={2500} />
       </div>
