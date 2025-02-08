@@ -16,25 +16,25 @@ Guest Dashboard: Dashboard for guests
 
 Event Creation: Users can create and manage Events
 <br/>
-<img src="./client.src/partials/CreateEvent.png"> 
+<img src="./client/src/partials/CreateEvent.png"> 
 <br/>
 
 Filtering of Events: Events can be filtered on basis of Category and date
 <br/>
-<img src="./client.src/partials/FilteringOfEvents.png"> 
+<img src="./client/src/partials/FilteringOfEvents.png"> 
 <br/>
 
 Join and Leave Event: Users can Join or leave a specific event
 <br/>
-<img src="./client.src/partials/JoinAndLeaveEvent"> 
+<img src="./client/src/partials/JoinAndLeaveEvent"> 
 <br/>
 
 User and Guest Authentication: User can SignUp or SignIn to the Website to access it's features. Users can signin as Guest and get access to some limited features.
 <br/>
-<img src="./client.src/partials/SignUp.png"> 
+<img src="./client/src/partials/SignUp.png"> 
 <br/>
 <br/>
-<img src="./client.src/partials/Signin.png"> 
+<img src="./client/src/partials/Signin.png"> 
 <br/>
 
 Real-Time Attendee List: Shows the number of attendee for each event in Real-Time
