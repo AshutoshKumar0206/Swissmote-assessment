@@ -19,14 +19,14 @@ const mongoose = require('mongoose');
 const server =  http.createServer(app);
 const io = new Server(server, {
     cors: {
-      origin: ["http://localhost:3000", "https://swissmote-assessment.vercel.app/"],
+      origin: ["http://localhost:3000", "https://swissmote-assessment.vercel.app"],
       methods: ['GET', 'POST'],
           credentials: true,
     },
   });
 
 app.use(express.static('public'))
-const allowedOrigins = ['http://localhost:3000', "https://swissmote-assessment.vercel.app/"]
+const allowedOrigins = ["http://localhost:3000", "https://swissmote-assessment.vercel.app"]
 app.use((req, res, next) =>{
     const origin = req.headers.origin;
     if(allowedOrigins.includes(origin)){
