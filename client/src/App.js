@@ -1,10 +1,8 @@
 import React, { useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Header from "./components/Header";
 import Signup from "./components/Signup";
 import Signin from "./components/Signin";
 import OTPVerification from "./components/OTPVerification";
-import BlankPage from "./components/BlankPage";
 import EventDashboard from "./components/EventDashboard";
 import Home from "./components/Home";
 import Profile from "./components/Profile";
