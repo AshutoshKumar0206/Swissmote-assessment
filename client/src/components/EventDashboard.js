@@ -124,6 +124,7 @@ const UserDashboard = () => {
       if (response.status === 200) {
         document.cookie = "token=; path=/; expires=Thu, 01 Jan 1970 00:00:00 UTC;";
         toast.success("Logout Successful")
+        navigate('/signin');
       } else {
         toast.error(response.data.message || "Logout failed.");
       }
