@@ -54,7 +54,6 @@ const CreateEvent = () => {
           },
         }
       );
-      console.log(response);
       if (response.data.success) {
         toast.success("Event created successfully!");
         setEventDetails({ name: "", description: "", date: "", time: "", category: "" });

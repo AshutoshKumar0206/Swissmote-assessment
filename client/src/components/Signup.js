@@ -32,14 +32,12 @@ const Signup = () => {
       const response = await axios.post(`${apiUrl}/user/signup`, userDetails);
       if (response.status === 201) {
         const result = await axios.post(`${apiUrl}/user/sendotp`, userEmail);
-        console.log(result);
         if (result.status === 200) {
           navigate("/otpverification", { state: { email } });
         }
       }
     } catch (err) {
       toast.error(err.response?.data?.message || "Signup failed. Please try again.");
-      console.error(err);
     }
   };
 

@@ -68,14 +68,12 @@ const GuestDashboard = () => {
   };
 
   const filterEvents = () => {
-    let filteredEvents = events;
-    console.log("Filtering events", filteredEvents); 
+    let filteredEvents = events; 
 
     if (filters.category) {
       filteredEvents = filteredEvents.filter(event => event.category === filters.category);
     }
     if (filters.date) {
-      console.log(filters.date)
       filteredEvents = filteredEvents.filter(event => new Date(event.date).toISOString().split('T')[0] === filters.date);
     }
 

@@ -17,7 +17,6 @@ const UserDashboard = () => {
   const [categories, setCategories] = useState([]);
   const [filters, setFilters] = useState({ category: '', date: '' });
 
-  console.log("categories", categories);
   const userId = id.toString();
   let userData;
   const fetchUserData = async () => {
@@ -39,6 +38,7 @@ const UserDashboard = () => {
           },
         }
       );
+      console.log(response);
       if (response.data.success) {
         setUser(response.data.user);
         userData = response.data.user;
@@ -172,14 +172,12 @@ const UserDashboard = () => {
   };
 
   const filterEvents = () => {
-    let filteredEvents = events;
-    console.log("Filtering events", filteredEvents); 
+    let filteredEvents = events; 
 
     if (filters.category) {
       filteredEvents = filteredEvents.filter(event => event.category === filters.category);
     }
     if (filters.date) {
-      console.log(filters.date)
       filteredEvents = filteredEvents.filter(event => new Date(event.date).toISOString().split('T')[0] === filters.date);
     }
 

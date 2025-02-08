@@ -35,7 +35,6 @@ const UpdateProfile = () => {
             if (response.data.success) {
                 toast.success("Profile updated successfully!");
                 setProfileInput({ ...profileInput, profileInput: response.data })
-                setTimeout(()=>navigate(`/profile/${userId}`, { state: { profile: profileInput, userID: userId, userRole } }),1500);
             }
         } catch (err) {
             toast.error(err.response?.data?.message || "An error occurred during updating profile.");

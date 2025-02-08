@@ -14,11 +14,10 @@ const apiUrl = window.location.hostname === 'localhost' ?
 const navigate = useNavigate();
 const socket = io(`${apiUrl}`);
 const event = location.state?.event;
-console.log(event);
 const [error, setError] = useState("");
 const [events, setEvents] = useState(event);
 const userId = location.state?.userId;
-console.log('event hu mai', events);
+
   useEffect(() => {
     const fetchEventDetails = async () => {
         try{
@@ -37,7 +36,7 @@ console.log('event hu mai', events);
                     Authorization: `Bearer ${token}`,
                 },
             });
-            console.log('hello ji', response);
+            console.log(response);
             if(response.data.success){
                 setEvents((prevEvents)=> ({...prevEvents, attendeesId:response.data.attendeesId, 
                     attendees:response.data.attendees, userInfo: response.data.attendeesInfo}))
@@ -48,7 +47,6 @@ console.log('event hu mai', events);
         }
     }
     socket.on('attendeeUpdate', ({ eventId, attendees, attendeesId, userInfo }) => {
-        console.log('heello', event)
         if(event._id === eventId){
             setEvents((prevEvents) =>
                 ({ ...prevEvents, attendees, attendeesId, userInfo }));
@@ -62,7 +60,6 @@ console.log('event hu mai', events);
 }, [event._id, navigate]);
 
 const joinEvent = (id, userId) => {
-    console.log(userId);
     socket.emit('joinEvent', { eventId: id, userid: userId });
     toast.success('A new User has joined the Event.');
 };

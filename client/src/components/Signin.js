@@ -23,12 +23,12 @@ const Signin = () => {
         email,
         password,
       });
-      console.log(response);
+
       if (response.data.success) {
         const { token, user} = response.data;
         document.cookie = `token=${token}; path=/`;
         toast.success("Signin successful!");
-      navigate(`/dashboard/${user._id}`)
+        navigate(`/dashboard/${user._id}`)
 
       }
     } catch (err) {
@@ -44,11 +44,10 @@ const Signin = () => {
         localStorage.setItem('guestToken', response.data.token);
         navigate('/guestdashboard');
       } else {
-        alert('Error signing in');
+        toast.error('Error occured while signing in');
       }
     } catch (error) {
-      alert('An error occurred');
-      console.error(error);
+      toast.error('An error occurred in processing your request');
     }
 
   }

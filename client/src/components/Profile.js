@@ -29,7 +29,6 @@ const Profile = () => {
     if (file) {
       const fileType = file.type;
       if (fileType !== 'image/jpeg' && fileType !== 'image/jpg') {
-        // alert('Please upload a JPG or JPEG file.');
         toast.error('Please upload a JPG or JPEG file.');
         e.target.value = '';
         return;
@@ -104,7 +103,6 @@ const Profile = () => {
           toast.success("Logout Successful");
           setTimeout(() => navigate(`/signin`), 1500);
         } else {
-          // setError(response.data.message || 'Logout failed.');
           toast.error(response.data.message || 'Logout failed.');
         }
     } catch (err) {

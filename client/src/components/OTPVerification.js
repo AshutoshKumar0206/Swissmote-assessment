@@ -23,7 +23,6 @@ const OTPVerification = () => {
       }
     } catch (err) {
       toast.error("Invalid OTP. Please try again.");
-      // console.error(err);
     }
   };
 
