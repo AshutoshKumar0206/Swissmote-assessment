@@ -4,8 +4,9 @@ Easily create and manage your events with our intuitive platform.<br/>
 Upload and organize images, track attendees, and manage event details all in one place!
 
 ## Features
-User and Event Dashboard: Dashboard for users and events
-
+User and Event and Guest Dashboard: Dashboard for users and events
+<img src="./partials/UserDashboard.png">
+<img src="./partials/GuestDashboard.png">
 Event Creation: Users can create and manage Events
 
 Filtering of Events: Events can be filtered on basis of Category and date
