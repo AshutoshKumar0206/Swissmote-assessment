@@ -25,7 +25,6 @@ const App = () => {
         <Route path="/forgotpassword" element={<ForgotPassword />} />
         <Route path="/resetpassword" element={<ResetPassword />} />
         <Route path="/otpverification" element={<OTPVerification />} />
-        <Route path="/blank" element={<BlankPage />} />
         <Route path="/dashboard/:id" element={<EventDashboard />} />
         <Route path="/profile/:id" element={<Profile />} />
         <Route path="createevent" element={<CreateEvent />} />
