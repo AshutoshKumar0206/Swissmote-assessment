@@ -9,8 +9,8 @@ import backgroundImage from "../partials/image.jpg";
 const EventDetails = () => {
 const { id } = useParams();
 const location = useLocation();
-const apiUrl = window.location.hostname === 'localhost'
-? "http://localhost:8000" : null;
+const apiUrl = window.location.hostname === 'localhost' ? 
+"http://localhost:8000" : process.env.REACT_APP_BASE_URL;
 const navigate = useNavigate();
 const socket = io(`${apiUrl}`);
 const event = location.state?.event;

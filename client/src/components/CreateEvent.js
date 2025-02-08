@@ -7,7 +7,8 @@ import backgroundImage from "../partials/image.jpg";
 const CreateEvent = () => {
   const location = useLocation();
   const navigate = useNavigate();
-  const apiUrl = window.location.hostname === 'localhost' ? "http://localhost:8000" : null;
+  const apiUrl = window.location.hostname === 'localhost' ? 
+  "http://localhost:8000" : process.env.REACT_APP_BASE_URL;
   const [eventDetails, setEventDetails] = useState({
     name: "",
     description: "",

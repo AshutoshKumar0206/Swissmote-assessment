@@ -6,8 +6,8 @@ import 'react-toastify/dist/ReactToastify.css';
 import backgroundImage from "../partials/image.jpg";
 const GuestDashboard = () => {
   const location = useLocation();
-  const apiUrl = window.location.hostname === 'localhost'
-    ? "http://localhost:8000" : null;
+  const apiUrl = window.location.hostname === 'localhost' ? 
+  "http://localhost:8000" : process.env.REACT_APP_BASE_URL;
   const navigate = useNavigate();
   const [user, setUser] = useState(null);
   const [date, setDate] = useState([]); 

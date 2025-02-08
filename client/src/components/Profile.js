@@ -12,8 +12,8 @@ const Profile = () => {
   const [error, setError] = useState('');
   const profileData = location.state?.profile;
   const userId = location.state?.userID;
-  const apiUrl = window.location.hostname === 'localhost'
-    ? "http://localhost:8000" : null;
+  const apiUrl = window.location.hostname === 'localhost' ? 
+  "http://localhost:8000" : process.env.REACT_APP_BASE_URL;
   const [data, setData] = useState(null);
   const [selectedFile, setSelectedFile] = useState(null);
   const [isUploading, setIsUploading] = useState(false);

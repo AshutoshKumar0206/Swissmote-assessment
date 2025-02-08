@@ -13,7 +13,8 @@ const Signup = () => {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [error, setError] = useState("");
-  const apiUrl = window.location.hostname === 'localhost' ? "http://localhost:8000" : null;
+  const apiUrl = window.location.hostname === 'localhost' ? 
+  "http://localhost:8000" : process.env.REACT_APP_BASE_URL;
   const navigate = useNavigate();
 
   const handleSignup = async (e) => {
