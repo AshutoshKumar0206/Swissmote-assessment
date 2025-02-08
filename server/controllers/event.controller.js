@@ -33,6 +33,7 @@ module.exports.createEvent = async(req, res, next) => {
           category,
           attendeesId: [],
           attendees:0,
+          createdBy: user.firstName + " " + user.lastName
         });
     
         await newEvent.save();
@@ -54,17 +55,8 @@ module.exports.createEvent = async(req, res, next) => {
 
 module.exports.getAllEvents = async(req, res, next) => {
   try {
-    const userId = req.params.id;
-    const {category, date } = req.body;
-    const user = await userModel.findById(userId).populate('eventId');
-    if (!user) {
-      return res.status(404).json({
-        success:false,
-        nessage:"User not found",
-    });
-    }
-    const eventIds = user.eventId;
-    const events = await Event.find({'_id':{$in:eventIds}});
+
+    const events = await Event.find();
     if (!events || events.length === 0) {
       return res.status(404).json({
           success: false,
@@ -107,4 +99,73 @@ module.exports.getEvent = async (req, res, next) => {
       success:false, 
       message: 'Internal Server error' });
   }
+}
+
+module.exports.dashboard = async (req, res, next) => {
+  try {
+    const id = req.user.id;
+    if(id !== req.user.id){
+      return res.status(404).send({
+        success: false,
+        message: 'User is unauthorized to check other persons data'
+      })
+    } else if (!mongoose.Types.ObjectId.isValid(id)) {
+      return res.status(200).json({
+        success: false,
+        message: "Invalid user ID",
+      });
+    }
+    const user = await userModel
+    .findById(id)
+    .select("-password")
+    
+    if (!user) {
+      return res.status(200).json({
+        success: false,
+        message: "User not found",
+      });
+    }
+const events = await Event.find();
+   if(!events){
+    res.status(404).json({
+      success: false,
+      message: "Event not found",
+    })
+   }
+    res.status(200).json({
+      user: {
+        id: user._id,
+        firstName: user.firstName,
+        lastName: user.lastName,
+        email: user.email,
+        createdAt: user.createdAt,
+      },
+      events,
+      success: true,
+    });
+  } catch (err) {
+
+    if (!res.headersSent) {
+      res.status(500).json({
+        success: false,
+        message: "Internal Server Error",
+      });
+    }
+
+  }
+};
+
+module.exports.guestDashboard = async (req, res, next) => {
+  try{
+    const events = await Event.find();
+    res.status(200).json({
+      events,
+      success: true,
+    });
+  } catch (err) {
+      res.status(500).json({
+        success: false,
+        message: "Internal Server Error",
+      });
+}
 }

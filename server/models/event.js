@@ -31,6 +31,10 @@ const eventSchema = new mongoose.Schema({
     attendees:{
       type: Number,
       default:0,
+    },
+    createdBy:{
+      type:String,
+      required: true,
     }
   });
 

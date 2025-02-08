@@ -32,4 +32,9 @@ module.exports.isAuthenticated = async (req, res, next) => {
       });
     }
   };
+
+  module.exports.isGuestAuthenticated = async(req, res, next) => {
+  const token = req.headers.authorization?.split(' ')[1]; // Bearer <token>
+  return next();
+  }
   

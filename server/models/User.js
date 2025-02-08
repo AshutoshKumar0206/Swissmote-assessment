@@ -39,7 +39,11 @@ const UserSchema = new mongoose.Schema({
     {
       type: mongoose.Schema.Types.ObjectId,
     }
-  ]
+  ],
+  role:{
+    type:String,
+    enum:['guest', 'user']
+  }
 });
 
 module.exports = mongoose.model('User', UserSchema);

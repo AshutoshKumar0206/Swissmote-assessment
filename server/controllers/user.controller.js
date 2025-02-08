@@ -72,10 +72,12 @@ module.exports.signinGuest = async (req, res, next) => {
   try {
     const guestPayload = {
       role: 'guest',
-      createdAt: Date.now(),
     };
-    const token = jwt.sign(guestPayload, 'your_secret_key', { expiresIn: '1h' });
-    res.json({ success: true, token });
+    const token = jwt.sign(guestPayload, process.env.JWT_SECRET, { expiresIn: '24h' });
+    res.json({ 
+      success: true, 
+      token, 
+    });
   } catch (err) {
     console.log(err);
     next(err);
@@ -210,7 +212,8 @@ module.exports.verifyotp = async (req, res) => {
       firstName: currUser.firstName,
       lastName: currUser.lastName,
       email: currUser.email,
-      password: currUser.password,    
+      password: currUser.password,
+      role:'user',    
     });
 
     await approvedUser.save();
@@ -352,53 +355,6 @@ exports.resetPassword = async (req, res) => {
 	}
 };
 
-module.exports.dashboard = async (req, res, next) => {
-  try {
-    const { id } = req.params;
-    if(id !== req.user.id){
-      return res.status(404).send({
-        success: false,
-        message: 'User is unauthorized to check other persons data'
-      })
-    } else if (!mongoose.Types.ObjectId.isValid(id)) {
-      return res.status(200).json({
-        success: false,
-        message: "Invalid user ID",
-      });
-    }
-    const user = await userModel
-    .findById(id)
-    .select("-password")
-    
-    if (!user) {
-      return res.status(200).json({
-        success: false,
-        message: "User not found",
-      });
-    }
-
-
-    res.status(200).json({
-      user: {
-        id: user._id,
-        firstName: user.firstName,
-        lastName: user.lastName,
-        email: user.email,
-        createdAt: user.createdAt,
-      },
-      success: true,
-    });
-  } catch (err) {
-
-    if (!res.headersSent) {
-      res.status(500).json({
-        success: false,
-        message: "Internal Server Error",
-      });
-    }
-
-  }
-};
 
 module.exports.getProfile = async (req, res, next) => {
   try {

@@ -14,7 +14,6 @@ const PORT = process.env.PORT || 4000;
 const http = require("http");
 const {Server} = require('socket.io'); 
 const mongoose = require('mongoose');
-const { userInfo } = require("os");
 // const { app, server } =require( "./lib/socket.js");
 //To initialize a server
 const server =  http.createServer(app);

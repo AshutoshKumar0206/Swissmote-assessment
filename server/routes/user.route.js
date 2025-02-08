@@ -17,8 +17,7 @@ router.post("/verifyotp", userController.verifyotp);
 router.post("/sendresetotp", userController.sendresetpasswordotp);
 router.post("/resetpassword", userController.resetPassword);
 
-// User Dashboard Route
-router.get("/dashboard/:id", isAuthenticated, userController.dashboard);
+// User profile Route
 router.get("/profile/:id", isAuthenticated, userController.Profile);
 router.put("/updateprofile/:id", isAuthenticated, userController.updateProfile);
 router.put("/updatedisplaypicture/:id", isAuthenticated, userController.updateDisplayPicture);
